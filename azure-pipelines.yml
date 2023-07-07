@@ -27,7 +27,8 @@ steps:
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
-      awsCommand: 's3 cp app.zip s3://deployment3434'
+      awsCommand: 's3'
+      awsSubCommand: 'cp app.zip s3://deployment3434'
     displayName: 'Upload application package to S3'
 
   - task: AWSCLI@1
