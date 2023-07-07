@@ -1,0 +1,52 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+      npm run build
+      zip -r app.zip .
+    displayName: 'Build and package application'
+
+  - task: AWSCLI@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      command: 's3 cp app.zip s3://deployment3434'
+    displayName: 'Upload application package to S3'
+
+  - task: AWSCLI@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      command: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 stop app.js"]'
+    displayName: 'Stop running application'
+
+  - task: AWSCLI@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      command: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["aws s3 cp s3://deployment3434/app.zip ."]'
+    displayName: 'Copy application code from S3 to EC2 instance'
+
+  - task: AWSCLI@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      command: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 start app.js"]'
+    displayName: 'Start application'
