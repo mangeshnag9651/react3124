@@ -28,7 +28,7 @@ steps:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
       awsCommand: 's3'
-      awsSubCommand: 'ls app.zip s3://deployment3434'
+      awsSubCommand: 'mv app.zip s3://deployment3434'
     displayName: 'Upload application package to S3'
 
   - task: AWSCLI@1
