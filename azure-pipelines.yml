@@ -27,26 +27,26 @@ steps:
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
-      awscommand: 's3 cp app.zip s3://deployment3434'
+      awsCommand: 's3 cp app.zip s3://deployment3434'
     displayName: 'Upload application package to S3'
 
   - task: AWSCLI@1
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
-      awscommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 stop app.js"]'
+      awsCommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 stop app.js"]'
     displayName: 'Stop running application'
 
   - task: AWSCLI@1
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
-      awscommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["aws s3 cp s3://deployment3434/app.zip ."]'
+      awsCommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["aws s3 cp s3://deployment3434/app.zip ."]'
     displayName: 'Copy application code from S3 to EC2 instance'
 
   - task: AWSCLI@1
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
-      awscommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 start app.js"]'
+      awsCommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 start app.js"]'
     displayName: 'Start application'
