@@ -20,34 +20,10 @@ steps:
   - script: |
       npm install
       npm run build
-      zip -r app.zip .
-    displayName: 'Build and package application'
+    displayName: 'Build React Application'
 
-  - task: AWSCLI@1
+  - task: PublishBuildArtifacts@1
     inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      awsCommand: 's3'
-      awsSubCommand: 'mv app.zip s3://deployment3434'
-    displayName: 'Upload application package to S3'
-
-  - task: AWSCLI@1
-    inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      awsCommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 stop app.js"]'
-    displayName: 'Stop running application'
-
-  - task: AWSCLI@1
-    inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      awsCommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["aws s3 cp s3://deployment3434/app.zip ."]'
-    displayName: 'Copy application code from S3 to EC2 instance'
-
-  - task: AWSCLI@1
-    inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      awsCommand: 'ssm send-command --instance-ids i-00e3d70b723d95b6f --document-name "AWS-RunShellScript" --parameters commands=["pm2 start app.js"]'
-    displayName: 'Start application'
+      PathtoPublish: '$(Build.SourcesDirectory)/build'
+      ArtifactName: 'react-app'
+    displayName: 'Publish Artifact'
