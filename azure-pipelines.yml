@@ -20,10 +20,13 @@ steps:
   - script: |
       npm install
       npm run build
-    displayName: 'Build React Application'
+      zip -r app.zip .
+    displayName: 'Build and package application'
 
-  - task: PublishBuildArtifacts@1
+  - task: AWSCLI@1
     inputs:
-      PathtoPublish: '$(Build.SourcesDirectory)/build'
-      ArtifactName: 'react-app'
-    displayName: 'Publish Artifact'
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      awsCommand: 's3'
+      awsSubCommand: 'mv app.zip s3://deployment3434'
+    displayName: 'Upload application package to S3'
