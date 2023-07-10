@@ -27,3 +27,12 @@ steps:
       PathtoPublish: '$(Build.SourcesDirectory)/build'
       ArtifactName: 'react-app'
     displayName: 'Publish Artifact'
+
+  - task: S3Upload@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      bucketName: 'deployment3434'
+      sourceFolder: '$(Build.SourcesDirectory)/build'
+      globExpressions: 'react-app'
+      createBucket: true
