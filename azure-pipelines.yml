@@ -33,8 +33,8 @@ steps:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
-      sourceFolder: '$(Build.SourcesDirectory)/build'
-      globExpressions: 'build'
+      sourceFolder: '$(Build.SourcesDirectory)/'
+      globExpressions: 'react-app'
       createBucket: true
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
