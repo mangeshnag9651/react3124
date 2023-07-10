@@ -34,5 +34,7 @@ steps:
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
       sourceFolder: '$(Build.SourcesDirectory)/build'
-      globExpressions: 'react-app'
+      globExpressions: 'build'
       createBucket: true
+      keyManagement: 'awsManaged'
+      encryptionAlgorithm: 'AES256'
