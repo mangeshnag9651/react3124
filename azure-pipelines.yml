@@ -39,12 +39,6 @@ steps:
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
   
-  - task: AWSCLI@1
-    inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      awsCommand: 's3 sync s3://deployment3434 /var/www/html'
-  
   - task: SystemsManagerRunCommand@1
     inputs:
       awsCredentials: 'aws-s3-connection'
