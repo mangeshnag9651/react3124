@@ -38,6 +38,12 @@ steps:
       createBucket: true
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
+    
+  - task: AWSCLI@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      awsCommand: 's3 cp s3://deployment3434 . \  scp * ubuntu@13.232.227.202:/var/www/html/'
   
   - script: |
       aws ssm send-command \
