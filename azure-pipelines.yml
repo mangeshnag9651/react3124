@@ -43,4 +43,4 @@ steps:
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
-      awsCommand: 'ssm send-command --document-name "AWS-RunShellScript" --parameters "commands=[\"aws s3 sync s3://deployment3434 /var/www/html\"]" --targets "Key=tag:Name,Values=System" --max-concurrency "50" --max-errors "0"'
+      awsCommand: 's3 sync s3://deployment3434 /var/www/html'
