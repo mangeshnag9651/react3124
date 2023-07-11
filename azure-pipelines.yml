@@ -39,12 +39,10 @@ steps:
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
   
-  - task: SystemsManagerRunCommand@1
-    inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      documentName: 'AWS-RunShellScript'
-      documentParameters: 'aws s3 sync s3://deployment3434 /var/www/html'
-      instanceSelector: 'fromInstanceIds'
-      instanceIds: 'i-00e3d70b723d95b6f'
-      outputS3BucketName: 'deployment3434'
+  - script: |
+      aws ssm send-command \
+        --document-name "AWS-RunShellScript" \
+        --parameters '{"commands":["aws s3 sync s3://deployment3434 /var/www/html"]}' \
+        --targets '[{"Key":"Name","Values":["System"]}]' \
+        --region "ap-south-1"
+    displayName: 'AWS SSM Run Command - Copy Files from S3 to EC2'
