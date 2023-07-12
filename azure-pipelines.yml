@@ -39,5 +39,10 @@ steps:
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
     
+  - task: AWSCLI@1
+    inputs:
+      awsCredentials: 'aws-s3-connection'
+      regionName: 'ap-south-1'
+      awsCommand: 'aws ssm send-command --document-name "AWS-RunShellScript" --document-version "1" --targets ''[{"Key":"InstanceIds","Values":["i-00e3d70b723d95b6f"]}]'' --parameters ''{"commands":["aws s3 sync s3://deployment3434 /var/www/html"],"workingDirectory":[""],"executionTimeout":["3600"]}'' --timeout-seconds 600 --max-concurrency "50" --max-errors "0" --region ap-south-1'
   - script: |
       aws ssm send-command --document-name "AWS-RunShellScript" --document-version "1" --targets '[{"Key":"InstanceIds","Values":["i-00e3d70b723d95b6f"]}]' --parameters '{"commands":["aws s3 sync s3://deployment3434 /var/www/html"],"workingDirectory":[""],"executionTimeout":["3600"]}' --timeout-seconds 600 --max-concurrency "50" --max-errors "0" --region ap-south-1
