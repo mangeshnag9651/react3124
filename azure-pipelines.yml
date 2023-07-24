@@ -44,6 +44,6 @@ steps:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
       documentName: 'AWS-RunShellScript'
-      documentParameters: '{"commands":["aws s3 sync s3://deployment3434 /var/www/html"],"workingDirectory":[""],"executionTimeout":["3600"]}'
+      documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html"],"workingDirectory":[""],"executionTimeout":["3600"]}'
       instanceSelector: 'fromInstanceIds'
       instanceIds: 'i-06b9b53fc70130b20'
