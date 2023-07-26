@@ -46,4 +46,4 @@ steps:
       documentName: 'AWS-RunShellScript'
       documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
       instanceSelector: 'fromTags'
-      instanceTags: 'aws'
+      instanceTags: 'Name=aws'
