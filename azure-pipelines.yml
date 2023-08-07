@@ -27,22 +27,15 @@ steps:
       PathtoPublish: '$(Build.SourcesDirectory)/build'
       ArtifactName: 'react-app'
     displayName: 'Publish Artifact'
-    
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)/build'
-      includeRootFolder: true
-      archiveType: 'zip'
-      archiveFile: '$(Build.SourcesDirectory)/build.zip'
-      replaceExistingArchive: true
+  
 
   - task: S3Upload@1
     inputs:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
-      sourceFolder: '$(Build.SourcesDirectory)/build.zip'
-      globExpressions: 'build.zip'
+      sourceFolder: '$(Build.SourcesDirectory)/build'
+      globExpressions: '**'
       createBucket: true
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
