@@ -42,7 +42,7 @@ steps:
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
       sourceFolder: '$(Build.SourcesDirectory)/build.zip'
-      globExpressions: '**'
+      globExpressions: 'build.zip'
       createBucket: true
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
