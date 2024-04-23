@@ -40,11 +40,11 @@ steps:
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
       
-  - task: SystemsManagerRunCommand@1
-    inputs:
-      awsCredentials: 'aws-s3-connection'
-      regionName: 'ap-south-1'
-      documentName: 'AWS-RunShellScript'
-      documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
-      instanceSelector: 'fromTags'
-      instanceTags: 'Name=aws'
+  # - task: SystemsManagerRunCommand@1
+  #   inputs:
+  #     awsCredentials: 'aws-s3-connection'
+  #     regionName: 'ap-south-1'
+  #     documentName: 'AWS-RunShellScript'
+  #     documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
+  #     instanceSelector: 'fromTags'
+  #     instanceTags: 'Name=aws'
