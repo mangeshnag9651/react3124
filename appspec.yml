@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /path/to/empty/folder
+    destination: /path/to/extract/location/
+hooks:
+  BeforeInstall:
+- location: scripts/before_install.sh
+      timeout: 300
