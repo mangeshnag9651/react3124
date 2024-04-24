@@ -44,8 +44,6 @@ steps:
       sourceFolder: '$(Build.SourcesDirectory)/build'
       globExpressions: 'react-build.zip'
       createBucket: true
-      keyManagement: 'awsManaged'
-      encryptionAlgorithm: 'AES256'
   
   # - task: SystemsManagerRunCommand@1
   #   inputs:
