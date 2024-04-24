@@ -5,5 +5,5 @@ os: linux
 #     destination: /var/www/html
 hooks:
   BeforeInstall:
-- location: before_install.sh
+    - location: before_install.sh
       timeout: 300
