@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: /path/to/empty/folder
-    destination: /path/to/extract/location/
+  - source: /home/ubuntu
+    destination: /var/www/html
 hooks:
   BeforeInstall:
 - location: before_install.sh
