@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /home/ubuntu
+  - source: /home/ubuntu/react-build.zip
     destination: /var/www/html
 hooks:
   BeforeInstall:
