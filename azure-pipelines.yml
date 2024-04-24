@@ -27,7 +27,14 @@ steps:
       PathtoPublish: '$(Build.SourcesDirectory)/build'
       ArtifactName: 'react-app'
     displayName: 'Publish Artifact'
-  
+  - bash: |
+          ls
+          cd $(Build.SourcesDirectory)/build
+          ls
+          tar -zcf react-build.zip *
+          pwd
+          ls 
+    displayName: 'Archive build'
 
   - task: S3Upload@1
     inputs:
@@ -39,7 +46,7 @@ steps:
       createBucket: true
       keyManagement: 'awsManaged'
       encryptionAlgorithm: 'AES256'
-      
+  
   # - task: SystemsManagerRunCommand@1
   #   inputs:
   #     awsCredentials: 'aws-s3-connection'
@@ -48,11 +55,11 @@ steps:
   #     documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
   #     instanceSelector: 'fromTags'
   #     instanceTags: 'Name=aws'
-  - task: CodeDeployDeployApplication@1
-    inputs:
-      awsCredentials: 'aws-S3-Connection'
-      regionName: 'ap-south-1'
-      applicationName: 'Blue-Green'
-      deploymentGroupName: 'Blue-Green'
-      deploymentRevisionSource: 's3'
-      bucketName: 'deployment3434'
+  # - task: CodeDeployDeployApplication@1
+  #   inputs:
+  #     awsCredentials: 'aws-S3-Connection'
+  #     regionName: 'ap-south-1'
+  #     applicationName: 'Blue-Green'
+  #     deploymentGroupName: 'Blue-Green'
+  #     deploymentRevisionSource: 's3'
+  #     bucketName: 'deployment3434'
