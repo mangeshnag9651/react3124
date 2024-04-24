@@ -5,5 +5,5 @@ files:
     destination: /path/to/extract/location/
 hooks:
   BeforeInstall:
-- location: scripts/before_install.sh
+- location: before_install.sh
       timeout: 300
