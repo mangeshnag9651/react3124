@@ -60,5 +60,5 @@ steps:
       applicationName: 'Blue-Green'
       deploymentGroupName: 'Blue-Green'
       deploymentRevisionSource: 'workspace'
-      revisionBundle: 'react-build.zip'
+      revisionBundle: '$(Build.SourcesDirectory)/build/react-build.zip'
       bucketName: 'deployment3434'
