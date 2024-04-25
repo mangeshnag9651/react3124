@@ -31,7 +31,7 @@ steps:
           ls
           cd $(Build.SourcesDirectory)/build
           ls
-          tar -zcf react-build.zip *
+          zip -r react-build.zip *
           pwd
           ls 
     displayName: 'Archive build'
