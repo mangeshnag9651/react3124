@@ -29,6 +29,7 @@ steps:
     displayName: 'Publish Artifact'
   - bash: |
           ls
+          pwd
           cd $(Build.SourcesDirectory)/build
           ls
           zip -r react-build.zip *
