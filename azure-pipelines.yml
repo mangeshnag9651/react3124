@@ -66,4 +66,4 @@ steps:
       deploymentGroupName: 'Blue-Green'
       deploymentRevisionSource: 's3'
       bucketName: 'deployment3434'
-      bundleKey: 's3://deployment3434/react-build.zip'
+      bundleKey: 'react-build.zip'
