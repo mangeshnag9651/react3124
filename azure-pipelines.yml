@@ -31,6 +31,8 @@ steps:
           ls
           pwd
           cd $(Build.SourcesDirectory)/build
+          cp /home/vsts/work/1/s/appspec.yml .
+          cp -r /home/vsts/work/1/s/before_install.sh .
           ls
           zip -r react-build.zip *
           pwd
