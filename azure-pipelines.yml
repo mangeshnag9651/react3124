@@ -58,12 +58,12 @@ steps:
   #     documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
   #     instanceSelector: 'fromTags'
   #     instanceTags: 'Name=aws'
-  # - task: CodeDeployDeployApplication@1
-  #   inputs:
-  #     awsCredentials: 'aws-S3-Connection'
-  #     regionName: 'ap-south-1'
-  #     applicationName: 'Blue-Green'
-  #     deploymentGroupName: 'Blue-Green'
-  #     deploymentRevisionSource: 'workspace'
-  #     revisionBundle: '$(Build.SourcesDirectory)/build/react-build.zip'
-  #     bucketName: 'deployment3434'
+  - task: CodeDeployDeployApplication@1
+    inputs:
+      awsCredentials: 'aws-S3-Connection'
+      regionName: 'ap-south-1'
+      applicationName: 'Blue-Green'
+      deploymentGroupName: 'Blue-Green'
+      deploymentRevisionSource: 's3'
+      bucketName: 'deployment3434'
+      bundleKey: 's3://deployment3434/react-build.zip'
