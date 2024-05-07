@@ -12,10 +12,16 @@ parameters:
 pool:
   vmImage: ubuntu-latest
 
+# variables:
+#   branchToTrigger: ${{ parameters.branchName }}
+
 trigger:
+  batch: true
   branches:
     include:
-    - ${parameters.branchName}
+    # - ${{ variables.branchToTrigger}}
+    # - ${{ parameters.branchName }}
+    - $(branchName)
  
 stages:
 - stage: Build
