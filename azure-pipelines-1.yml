@@ -27,14 +27,6 @@ stages:
     steps:
     - script: echo "Building branch:$(branchName)"
       displayName: 'Build on $(branchName) branch'
-# trigger:
-#   branches:
-#     include:
-#       - none
-
-# pool:
-#   vmImage: 'ubuntu-latest'
-
 
     - task: NodeTool@0
       inputs:
@@ -74,3 +66,12 @@ stages:
         sourceFolder: '$(Build.SourcesDirectory)/build'
         globExpressions: 'react-build.zip'
         createBucket: true
+    - task: CodeDeployDeployApplication@1
+      inputs:
+        awsCredentials: 'aws-S3-Connection'
+        regionName: 'ap-south-1'
+        applicationName: 'Blue-Green'
+        deploymentGroupName: 'Blue-Green'
+        deploymentRevisionSource: 's3'
+        bucketName: 'deployment3434'
+        bundleKey: 'react-build.zip'
