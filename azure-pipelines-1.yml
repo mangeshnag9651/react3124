@@ -15,7 +15,7 @@ pool:
 trigger:
   branches:
     include:
-    - $(branchName)
+    - ${parameters.branchName}
  
 stages:
 - stage: Build
