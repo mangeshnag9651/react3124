@@ -33,6 +33,10 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
+  - checkout: self
+    clean: true
+    persistCredentials: true
+    fetchDepth: 1
   - script: echo "Running on branch $(targetBranch)"
 # stages:
 # - stage: Build
