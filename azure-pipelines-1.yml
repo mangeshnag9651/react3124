@@ -25,7 +25,7 @@
 parameters:
 - name: targetBranch
   type: string
-  default: 'main'  # Default branch
+  default: ' '  # Default branch
  
 jobs:
 - job: YourJobName
@@ -37,6 +37,7 @@ jobs:
     clean: true
     persistCredentials: true
     fetchDepth: 1
+    # ref: 'refs/heads/$(targetBranch)'
   - script: echo "Running on branch $(targetBranch)"
 # stages:
 # - stage: Build
