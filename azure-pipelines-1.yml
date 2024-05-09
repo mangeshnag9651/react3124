@@ -22,23 +22,23 @@
 #     # - ${{ variables.branchToTrigger}}
 #     # - ${{ parameters.branchName }}
 #     - $(branchName)
-# parameters:
-# - name: targetBranch
-#   type: string
-#   default: ' '  # Default branch
+parameters:
+- name: targetBranch
+  type: string
+  default: ' '  # Default branch
  
-# jobs:
-# - job: YourJobName
-#   displayName: Your Job Display Name
-#   pool:
-#     vmImage: 'ubuntu-latest'
-#   steps:
-#   - checkout: self
-#     clean: true
-#     persistCredentials: true
-#     fetchDepth: 1
-#     # ref: 'refs/heads/$(targetBranch)'
-#   - script: echo "Running on branch $(targetBranch)"
+jobs:
+- job: YourJobName
+  displayName: Your Job Display Name
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - checkout: self
+    clean: true
+    persistCredentials: true
+    fetchDepth: 1
+    # ref: 'refs/heads/$(targetBranch)'
+  - script: echo "Running on branch $(targetBranch)"
 # stages:
 # - stage: Build
 #   displayName: Build Stage
@@ -49,18 +49,7 @@
 #     steps:
 #     - script: echo "Building branch:$(branchName)"
 #       displayName: 'Build on $(branchName) branch'
-jobs:
-- job: YourJobName
-  displayName: Your Job Display Name
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - script: echo "Enter the branch name:"
-    displayName: 'Prompt user for branch name'
-    env:
-      BRANCH_NAME: $(Build.SourceBranchName)
- 
-  - script: echo "Running on branch $(BRANCH_NAME)"
+
   - task: NodeTool@0
     inputs:
       versionSpec: '14.x'
