@@ -16,7 +16,7 @@ jobs:
       echo "My variable value is: ${{ parameters.myVariable }}"
   - bash: |
       echo "My variable value is: ${{ parameters.myVariable }}"
-      git clone --single-branch --branch ${{ parameters.myVariable }} https://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/mangeshnag9651/react3124.git
+      git clone --single-branch --branch ${{ parameters.myVariable }} https://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/mangeshnag9651/blue-green.git
       ls
 # - task: NodeTool@0
 #   inputs:
