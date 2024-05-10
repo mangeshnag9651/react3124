@@ -1,13 +1,11 @@
+parameters:
+- name: myVariable
+  type: string
+  default: ''
+ 
 trigger:
 - none
-
-# variables:
-# - name: one
-#   value: initialValue
-
-pool:
-  vmImage: ubuntu-latest
-
+ 
 jobs:
 - job: Build
   displayName: 'Build job'
@@ -15,9 +13,7 @@ jobs:
     vmImage: 'ubuntu-latest'
   steps:
   - script: |
-      echo -n "Enter your variable value: "
-      read user_variable
-      echo "User variable value: $user_variable"
+      echo "My variable value is: $(myVariable)"
 # - task: NodeTool@0
 #   inputs:
 #     versionSpec: '14.x'
