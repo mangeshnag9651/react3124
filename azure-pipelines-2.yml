@@ -12,8 +12,6 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  - script: |
-      echo "My variable value is: ${{ parameters.myVariable }}"
   - bash: |
       echo "My variable value is: ${{ parameters.myVariable }}"
       git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/blue-green.git
