@@ -1,7 +1,7 @@
-# parameters:
-# - name: myVariable
-#   type: string
-#   default: ''
+parameters:
+- name: myVariable
+  type: string
+  default: ''
 # trigger:
 # - none
 pool:
@@ -14,12 +14,12 @@ stages:
     displayName: 'Build job'
   
     steps:
-    # - bash: |
-    #     echo "My variable value is: ${{ parameters.myVariable }}"
-    #     git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/blue-green.git
-    #     cd blue-green
-    #     cat abc.yml
-    #     ls
+    - bash: |
+        # echo "My variable value is: ${{ parameters.myVariable }}"
+        # git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/blue-green.git
+        # cd blue-green
+        # cat abc.yml
+        ls
     - task: NodeTool@0
       inputs:
         versionSpec: '14.x'
@@ -37,3 +37,18 @@ stages:
       displayName: 'Publish Artifact'
 
 
+- stage: 'Stage'
+  jobs: 
+  - deployment: 'DeployToStage'
+    environment: 'Build-Stage-Branch-Promote'
+    strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: none
+            - bash: |
+                    echo "My variable value is: ${{ parameters.myVariable }}"
+                    git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/react3124.git
+                    cd blue-green
+                    cat abc.yml
+                    ls
