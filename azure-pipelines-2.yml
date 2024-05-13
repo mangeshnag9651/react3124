@@ -1,7 +1,7 @@
-parameters:
-- name: myVariable
-  type: string
-  default: ''
+# parameters:
+# - name: myVariable
+#   type: string
+#   default: ''
  
 trigger:
 - none
