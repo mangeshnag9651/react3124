@@ -12,47 +12,26 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  - bash: |
-      echo "My variable value is: ${{ parameters.myVariable }}"
-      git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/blue-green.git
-      cd blue-green
-      cat abc.yml
-      ls
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '14.x'
-#   displayName: 'Install Node.js'
+  # - bash: |
+  #     echo "My variable value is: ${{ parameters.myVariable }}"
+  #     git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/blue-green.git
+  #     cd blue-green
+  #     cat abc.yml
+  #     ls
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14.x'
+    displayName: 'Install Node.js'
 
-# - script: |
-#     npm install
-#     npm run build
-#   displayName: 'Build React Application'
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Build React Application'
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.SourcesDirectory)/build'
-#     ArtifactName: 'react-app'
-#   displayName: 'Publish Artifact'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/build'
+      ArtifactName: 'react-app'
+    displayName: 'Publish Artifact'
 
-# - bash: |
-#         ls
-#         pwd
-#         cd $(Build.SourcesDirectory)/build
-#         cp /home/vsts/work/1/s/appspec.yml .
-#         cp -r /home/vsts/work/1/s/before_install.sh .
-#         cp -r /home/vsts/work/1/s/applicationStart.sh .
-#         cp -r /home/vsts/work/1/s/install.sh .
-#         ls
-#         zip -r react-build.zip *
-#         pwd
-#         ls 
-#   displayName: 'Archive build'
 
-# - task: S3Upload@1
-#   inputs:
-#     awsCredentials: 'aws-s3-connection'
-#     regionName: 'ap-south-1'
-#     bucketName: 'deployment3434'
-#     sourceFolder: '$(Build.SourcesDirectory)/build'
-#     globExpressions: 'react-build.zip'
-#     createBucket: true
