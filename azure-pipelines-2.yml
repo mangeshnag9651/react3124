@@ -45,13 +45,7 @@ stages:
           deploy:
             steps:
             - download: none
-            # - bash: |
-            #         echo "My variable value is: ${{ parameters.myVariable }}"
-            #         git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/react3124.git
-            #         cd react3124
-            #         cat abc.yml
-            #         ls
-            #         pwd
+            
             - task: NodeTool@0
               inputs:
                 versionSpec: '14.x'
