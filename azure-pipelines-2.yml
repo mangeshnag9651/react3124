@@ -52,6 +52,7 @@ stages:
                     cd react3124
                     cat abc.yml
                     ls
+                    pwd
             - task: NodeTool@0
               inputs:
                 versionSpec: '14.x'
