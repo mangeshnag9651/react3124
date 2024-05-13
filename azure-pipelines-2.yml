@@ -75,6 +75,6 @@ stages:
             - task: PublishBuildArtifacts@1
               inputs:
                 PathtoPublish: '$(Build.SourcesDirectory)/react3124/build'
-                ArtifactName: 'react-app'
+                ArtifactName: 'react-app-stage'
                 publishLocation: 'Container'
               displayName: 'Publish Artifact'
