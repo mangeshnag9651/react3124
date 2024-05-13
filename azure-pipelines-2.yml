@@ -67,6 +67,7 @@ stages:
                     pwd
 
             - script: |
+                cd react3124
                 npm install
                 npm run build
               displayName: 'Build React Application'
