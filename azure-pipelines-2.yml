@@ -49,6 +49,21 @@ stages:
             - bash: |
                     echo "My variable value is: ${{ parameters.myVariable }}"
                     git clone --single-branch --branch ${{ parameters.myVariable }} https://github.com/mangeshnag9651/react3124.git
-                    cd blue-green
+                    cd react3124
                     cat abc.yml
                     ls
+            - task: NodeTool@0
+              inputs:
+                versionSpec: '14.x'
+              displayName: 'Install Node.js'
+
+            - script: |
+                npm install
+                npm run build
+              displayName: 'Build React Application'
+
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: '$(Build.SourcesDirectory)/build'
+                ArtifactName: 'react-app'
+              displayName: 'Publish Artifact'
