@@ -1,1 +1,66 @@
+parameters:
+  - name: shift
+    displayName: select shift
+    type: string
+    default: shift_to_DR
+    values:
+    - shift_to_Prod
+    - shift_to_DR
+  - name: nodegroupname
+    displayName: instance type for eks node group
+    type: string
+    default: ManagedNodeGroup1
+  - name: instancetype
+    displayName: instance type for eks node group
+    type: string
+    default: t3.medium
+    values:
+    - t3.micro
+    - t3.small
+    - t3.medium
+    - t3.large
+  - name: min_nodes
+    displayName: minimum number of nodes
+    type: number
+    default: 1
+  - name: desired_nodes
+    displayName: desired number of nodes
+    type: number
+    default: 2 
 
+variables:
+  shift_to_DR: ${{ eq(parameters['shift'],'shift_to_DR') }}
+  shift_to_Prod: ${{ eq(parameters['shift'],'shift_to_Prod') }}
+
+jobs:
+  - job: 'shiftDr'
+    displayName: 'shifting to DR'
+    pool:
+      vmImage: ubuntu-latest
+    condition: eq(variables['shift_to_DR'],'True')
+    steps:
+    - checkout: none 
+    - bash: |
+       
+    #    cd DevOps
+    #    ls
+    #    cd terraform/
+    #    ls
+    #    aws --version
+    #    aws cloudformation update-stack --stack-name ManagedNodeGroup-Dr --use-previous-template --parameters ParameterKey=InstanceType,ParameterValue=${{ parameters.instancetype}} ParameterKey=MinimumNumberofManagedNodes,ParameterValue=${{ parameters.min_nodes}} ParameterKey=DesiredNumberofManagedNodes,ParameterValue=${{ parameters.desired_nodes }} ParameterKey=MaximumNumberofManagedNodes,UsePreviousValue=true ParameterKey=ManagedNodeGroupName,ParameterValue=${{ parameters.nodegroupname }} ParameterKey=NodeCapacityProvider,ParameterValue=ON_DEMAND ParameterKey=Subnets,UsePreviousValue=true --region $(REGION_DR)
+    #    aws s3 cp s3://terraformtostate/terraform.tfstate . --endpoint-url https://s3.me-central-1.amazonaws.com --region $(REGION_DR)
+    #    echo "install terraform"
+    #    wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    #    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    #    sudo apt update && sudo apt install terraform
+    #    terraform --version
+    #    terraform init 
+    #    terraform plan -out=tfplan -var use_Dr_lb=true -var instance_class=db.t3.xlarge
+    #    # terraform apply tfplan
+    #    ls
+    #    aws s3 cp terraform.tfstate s3://terraformtostate/ --endpoint-url https://s3.me-central-1.amazonaws.com --region $(REGION_DR)
+    #   env:
+    #    AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+    #    #AWS_DEFAULT_REGION: $(AWS_DEFAULT_REGION)
+    #    AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
+    #    PAT: $(PAT)
