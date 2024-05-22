@@ -5,10 +5,10 @@ parameters:
 - name: DeployASG
   displayName: 'Select the ASG for deployment'
   type: string
-  default: ''
-  # values:
-  # - blue
-  # - green
+  default: 'blue'
+  values:
+  - blue
+  - green
 
 - name: blueAsgProductionTargetGroupArn
   displayName: 'Blue ASG Production Target Group ARN'
