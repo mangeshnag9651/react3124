@@ -16,12 +16,14 @@ parameters:
   default: 'arn:aws:elasticloadbalancing:ap-south-1:377637549504:targetgroup/Blue-Green/840a7a9d11a16706'
   values:
   - 'arn:aws:elasticloadbalancing:ap-south-1:377637549504:targetgroup/Blue-Green/840a7a9d11a16706'
+  - 'arn:aws:elasticloadbalancing:ap-south-1:377637549504:targetgroup/Testing-TG/d0c3ac7bd59ace64'
 - name: greenAsgTestingTargetGroupArn
   displayName: 'Green ASG Testing Target Group ARN'
   type: string
   default: 'arn:aws:elasticloadbalancing:ap-south-1:377637549504:targetgroup/Testing-TG/d0c3ac7bd59ace64'
   values:
   - 'arn:aws:elasticloadbalancing:ap-south-1:377637549504:targetgroup/Testing-TG/d0c3ac7bd59ace64'
+  - 'arn:aws:elasticloadbalancing:ap-south-1:377637549504:targetgroup/Blue-Green/840a7a9d11a16706'
 variables:
   aws_region: 'us-west-2'
   tf_version: '1.0.0'
