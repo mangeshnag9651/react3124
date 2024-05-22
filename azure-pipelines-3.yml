@@ -9,11 +9,7 @@ parameters:
   values:
   - blue
   - green
- 
-- name: DesiredCapacity
-  displayName: 'Desired instance count'
-  type: number
-  default: 2
+
 variables:
   aws_region: 'us-west-2'
   tf_version: '1.0.0'
