@@ -1,43 +1,35 @@
+variable "use_Swap_lb" {
+  type    = bool
+  default = false
+}
+
+# aws_route53_record.abc:
+resource "aws_route53_record" "abc" {
+    name    = "abc.com"
+    type    = "A"
+    zone_id = "annxnxnunxun"
+
+    alias {
+        evaluate_target_health = true
+        name                   = var.use_Swap_lb ? var.test_lb_dns_name : var.prod_lb_dns_name
+        zone_id                = var.use_Swap_lb ? var.test_lb_zone_id : var.prod_lb_zone_id
+    }
+}
+
+# aws_route53_record.test_abc:
+resource "aws_route53_record" "test_abc" {
+    name    = "test.abc.com"
+    type    = "A"
+    zone_id = "cccdcdcdccc"
+
+    alias {
+        evaluate_target_health = true
+        name                   = var.use_Swap_lb ? var.prod_lb_dns_name : var.test_lb_dns_name
+        zone_id                = var.use_Swap_lb ? var.prod_lb_zone_id : var.test_lb_zone_id
+    }
+}
+
 provider "aws" {
-  region = "us-west-2"
+  region = "me-cwest-5"
 }
- 
-variable "deploy_asg" {
-  description = "The ASG to deploy to"
-}
- 
-variable "desired_capacity" {
-  description = "Desired instance count for the ASG"
-}
- 
-data "aws_autoscaling_group" "blue" {
-  name = "existing-blue-asg-name"
-}
- 
-data "aws_autoscaling_group" "green" {
-  name = "existing-green-asg-name"
-}
- 
-resource "aws_autoscaling_group" "update_blue" {
-  count = var.deploy_asg == "blue" ? 1 : 0
-name = data.aws_autoscaling_group.blue.name
-  desired_capacity = var.desired_capacity
-  force_delete = true
-  lifecycle {
-    ignore_changes = [
-      "max_size", "min_size", "launch_configuration", "availability_zones"
-    ]
-  }
-}
- 
-resource "aws_autoscaling_group" "update_green" {
-  count = var.deploy_asg == "green" ? 1 : 0
-name = data.aws_autoscaling_group.green.name
-  desired_capacity = var.desired_capacity
-  force_delete = true
-  lifecycle {
-    ignore_changes = [
-      "max_size", "min_size", "launch_configuration", "availability_zones"
-    ]
-  }
-}
+
