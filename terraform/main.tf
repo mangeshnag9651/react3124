@@ -34,43 +34,42 @@ provider "aws" {
 }
 
 
-For updating alternate domain name in cloufront distribution:
+# For updating alternate domain name in cloufront distribution:
 
-
-resource "aws_route53_record" "production_record" {
-  zone_id = "your_zone_id"
-  name    = "abc.com"
-  type    = "A"
-  alias {
-    name                   = aws_cloudfront_distribution.var.cf_distribution[var.swap ? "test" : "production"].domain_name
-    zone_id                = aws_cloudfront_distribution.var.cf_distribution[var.swap ? "test" : "production"].hosted_zone_id
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "test_record" {
-  zone_id = "your_zone_id"
-  name    = "test.abc.com"
-  type    = "A"
-  alias {
-    name                   = aws_cloudfront_distribution.var.cf_distribution[var.swap ? "production" : "test"].domain_name
-    zone_id                = aws_cloudfront_distribution.var.cf_distribution[var.swap ? "production" : "test"].hosted_zone_id
-    evaluate_target_health = false
-  }
-}
 
 resource "aws_cloudfront_distribution" "production" {
   ...
-  
-  aliases = var.swap ? ["test.abc.com"] : ["abc.com"]
+  aliases = var.swap ? ["abc.com"] : ["test.abc.com"]
+  ...
 }
 
 resource "aws_cloudfront_distribution" "test" {
   ...
-  
-  aliases = var.swap ? ["abc.com"] : ["test.abc.com"]
+  aliases = var.swap ? ["test.abc.com"] : ["abc.com"]
+  ...
 }
 
-locals {
-  swap = true  # Set this to true to swap, false to not swap
+# For updating cloudfront distribution with Records:
+
+resource "aws_route53_record" "abc_com_record" {
+  zone_id = "your_zone_id"
+  name    = "abc.com"
+  type    = "A"
+  alias {
+    name                   = aws_cloudfront_distribution.production.domain_name
+    zone_id                = aws_cloudfront_distribution.production.hosted_zone_id
+    evaluate_target_health = false
+  }
 }
+
+resource "aws_route53_record" "test_abc_com_record" {
+  zone_id = "your_zone_id"
+  name    = "test.abc.com"
+  type    = "A"
+  alias {
+    name                   = aws_cloudfront_distribution.test.domain_name
+    zone_id                = aws_cloudfront_distribution.test.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
