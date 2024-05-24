@@ -37,28 +37,59 @@ provider "aws" {
 # For updating alternate domain name in cloufront distribution:
 
 
+# For updating alternate domain name in cloufront distribution:
+
+variable "swap" {
+  type    = bool
+  default = true
+}
+
+variable "prod_rec_name" {
+  description = "Production record name"
+  default     = "abc.com"
+}
+
+variable "test_rec_name" {
+  description = "Testing record name"
+  default     = "test.abc.com"
+}
+
 resource "aws_cloudfront_distribution" "production" {
   ...
-  aliases = var.swap ? ["abc.com"] : ["test.abc.com"]
+  aliases = var.swap ? [var.test_rec_name] : [var.prod_rec_name]
   ...
 }
 
 resource "aws_cloudfront_distribution" "test" {
   ...
-  aliases = var.swap ? ["test.abc.com"] : ["abc.com"]
+  aliases = var.swap ? [var.prod_rec_name] : [var.test_rec_name]
   ...
 }
 
+
 # For updating cloudfront distribution with Records:
 
+variable "swap_distribution" {
+  type = bool
+  default=true
+}
+
+variable "prod_dist_name" {
+  description = "Production Distribution name"
+  default     = "bxywxybwxbwx.cloudfront.net"
+}
+
+variable "test_dist_name" {
+  description = "Test Distribution name"
+  default     = "vbcbbccbcbwxbwx.cloudfront.net"
+}
 resource "aws_route53_record" "abc_com_record" {
   zone_id = "your_zone_id"
   name    = "abc.com"
   type    = "A"
   alias {
-    name                   = aws_cloudfront_distribution.production.domain_name
-    zone_id                = aws_cloudfront_distribution.production.hosted_zone_id
-    evaluate_target_health = false
+    name                   = var.swap_distribution ? var.test_dist_name : var.prod_dist_name
+    evaluate_target_health = true
   }
 }
 
@@ -67,9 +98,7 @@ resource "aws_route53_record" "test_abc_com_record" {
   name    = "test.abc.com"
   type    = "A"
   alias {
-    name                   = aws_cloudfront_distribution.test.domain_name
-    zone_id                = aws_cloudfront_distribution.test.hosted_zone_id
-    evaluate_target_health = false
+    name                   = var.swap_distribution ? var.prod_dist_name : var.test_dist_name
+    evaluate_target_health = true
   }
 }
-
