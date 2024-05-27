@@ -11,10 +11,10 @@ trigger:
 parameters:
 - name: tagValue
   type: string
-  default: 'blue'
-  values:
-    - blue
-    - green
+  default: ''
+  # values:
+  #   - blue
+  #   - green
 
 pool:
   vmImage: 'ubuntu-latest'
