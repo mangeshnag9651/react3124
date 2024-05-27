@@ -48,7 +48,7 @@ steps:
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
       sourceFolder: '$(Build.SourcesDirectory)/build'
-      globExpressions: 'react-build.zip'
+      globExpressions: '*'
       createBucket: true
   
   - task: SystemsManagerRunCommand@1
