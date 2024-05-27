@@ -47,8 +47,8 @@ steps:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
-      sourceFolder: 'react-app'
-      globExpressions: '*'
+      sourceFolder: '$(Build.SourcesDirectory)/build'
+      globExpressions: '**'
       createBucket: true
   
   - task: SystemsManagerRunCommand@1
