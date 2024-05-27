@@ -47,7 +47,7 @@ steps:
       awsCredentials: 'aws-s3-connection'
       regionName: 'ap-south-1'
       bucketName: 'deployment3434'
-      sourceFolder: '$(Build.SourcesDirectory)/build'
+      sourceFolder: '$(Build.SourcesDirectory)/build/'
       globExpressions: '*'
       createBucket: true
   
