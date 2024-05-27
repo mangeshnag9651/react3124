@@ -66,7 +66,7 @@ steps:
       documentName: 'AWS-RunShellScript'
       documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
       instanceSelector: 'fromBuildVariable'
-      instanceBuildVariable: '${{ parameters.myVariable }}'
+      instanceBuildVariable: '$(parameters.myVariable)'
 
   # - task: CodeDeployDeployApplication@1
   #   inputs:
