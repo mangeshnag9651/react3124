@@ -11,10 +11,10 @@ trigger:
 parameters:
 - name: tagValue
   type: string
-  default: ''
-  # values:
-  #   - blue
-  #   - green
+  default: 'blue'
+  values:
+    - blue
+    - green
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -66,7 +66,7 @@ steps:
       documentName: 'AWS-RunShellScript'
       documentParameters: '{"commands":["aws s3 cp s3://deployment3434 /var/www/html --recursive"],"workingDirectory":[""],"executionTimeout":["3600"]}'
       instanceSelector: 'fromTags'
-      instanceTags: 'Name=$(tagValue)'
+      instanceTags: 'Name=${{ parameters.tagValue }}'
 
   # - task: CodeDeployDeployApplication@1
   #   inputs:
